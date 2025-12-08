@@ -1,65 +1,230 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sistem Operasi Perpustakaan</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Sistem Informasi Perpustakaan</title>
   </head>
+  <link rel="stylesheet" href="style.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Rouge+Script&display=swap"
+  />
   <body>
-    <section class="navigation">
-      <div class="nav-container">
-        <div class="brand">
-          <a href="#!">Logo</a>
-        </div>
-        <nav>
-          <div class="nav-mobile">
-            <a id="nav-toggle" href="#!"><span></span></a>
-          </div>
-          <ul class="nav-list">
-            <li>
-              <a href="#!"></a>
-            </li>
-            <li>
-              <a href="#!">About</a>
-            </li>
-            <li>
-              <a href="#!">Daftar Buku</a>
-              <ul class="nav-dropdown">
-                <li>
-                  <a href="#!">Novel</a>
-                </li>
-                <li>
-                  <a href="#!">Buku Pelajaran</a>
-                </li>
-                <li>
-                  <a href="#!">Cerpen</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#!">Form Peminjaman</a>
-            </li>
-            <li>
-              <a href="#!">Form Pengembalian</a>
-            </li>
-            <li>
-              <a href="#!">Contact</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </section>
+    <!-- Toggle Button -->
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
 
-    <article class="content beranda">
-      <h2>Navigation</h2>
-      <p>Responsive Dropdown Navigation Bar.</p>
-      <p>
-        Want to see how it's made?
-        <a href="http://www.taniarascia.com/responsive-dropdown-navigation-bar/"
-          >Read the tutorial!</a
-        >
-      </p>
-    </article>
+    <!-- Header -->
+    <header id="header" class="with-sidebar">
+      <img src="gambar/book (1).png" alt="" />
+      <h1>Sistem Informasi Perpustakaan</h1>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <nav>
+        <ul>
+          <li onclick="showPage('login')">Login</li>
+          <li onclick="showPage('home')">Utama</li>
+          <li onclick="showPage('books')">Katalog Buku</li>
+          <li onclick="showPage('borrow')">Peminjaman</li>
+          <li onclick="showPage('return')">Pengembalian</li>
+          <li onclick="showPage('report')">Laporan</li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content" id="content">
+      <!-- Halaman Login -->
+      <div id="login" class="page active container">
+        <h2>Login</h2>
+        <form onsubmit="validateLogin(event)">
+          <label for="username">Username:</label>
+          <input type="text" id="username" required />
+          <label for="password">Password:</label>
+          <input type="password" id="password" required />
+          <button type="submit">Login</button>
+        </form>
+      </div>
+
+      <!-- Halaman Utama -->
+      <div id="home" class="page container">
+        <h2><b>Selamat Datang di Perpustakaan</b></h2>
+        <img src="gambar/book.png" alt="Logo Perpustakaan" class="logo-buku" />
+        <p>
+          Sistem Informasi Perpustakaan merupakan sebuah platform yang dirancang
+          untuk mempermudah proses pengelolaan data buku, peminjaman,
+          pengembalian, dan pencarian informasi oleh pengguna secara cepat dan
+          terstruktur. Sistem ini membantu petugas perpustakaan dalam mengatur
+          administrasi dengan lebih efisien, serta memberikan kemudahan bagi
+          anggota dalam mengakses katalog buku, status ketersediaan, dan riwayat
+          transaksi. Dengan adanya sistem ini, layanan perpustakaan menjadi
+          lebih modern, akurat, dan mampu meningkatkan kualitas pelayanan kepada
+          seluruh pengguna.
+        </p>
+      </div>
+
+      <!-- Halaman Data Buku -->
+      <div id="books" class="page container">
+        <h2>Data Buku</h2>
+        <label for="category"><b>Pilih Kategori:</b></label>
+        <select id="category" onchange="filterByCategory()">
+          <option value="all">Semua</option>
+          <option value="novel">Novel</option>
+          <option value="cerpen">Cerpen</option>
+          <option value="pelajaran">Pelajaran</option>
+        </select>
+        <input
+          type="text"
+          id="search"
+          placeholder="Cari buku..."
+          onkeyup="searchBooks()"
+        />
+        <div class="grid" id="bookGrid"></div>
+      </div>
+
+      <!-- Halaman Peminjaman -->
+      <div id="borrow" class="page container">
+        <h2>Form Peminjaman Buku</h2>
+        <div class="form-box">
+          <form id="formPinjam">
+            <label>Nama :</label>
+            <input
+              type="text"
+              id="nama"
+              placeholder="Masukkan nama lengkap"
+              required
+            /><br /><br />
+
+            <label>Email :</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="email@contoh.com"
+              required
+            /><br /><br />
+
+            <label>Kategori Buku :</label>
+            <input
+              type="radio"
+              name="jenis"
+              value="novel"
+              onchange="updateBookOptions()"
+              checked
+            />
+            Novel
+            <input
+              type="radio"
+              name="jenis"
+              value="cerpen"
+              onchange="updateBookOptions()"
+            />
+            Cerpen
+            <input
+              type="radio"
+              name="jenis"
+              value="pelajaran"
+              onchange="updateBookOptions()"
+            />
+            Pelajaran <br /><br />
+
+            <label>Judul Buku :</label>
+            <select id="judul" required>
+              <option value="">-- Pilih Buku --</option>
+            </select>
+            <br /><br />
+
+            <label>Tanggal Pinjam :</label>
+            <input type="date" id="tanggal" required /><br /><br />
+
+            <div class="button-box">
+              <button type="reset" class="reset" onclick="resetPreview()">
+                Reset
+              </button>
+              <button type="button" class="kirim" onclick="kirimData()">
+                Pinjam Buku
+              </button>
+            </div>
+          </form>
+
+          <div class="preview-box">
+            <h3>Preview:</h3>
+            <p><b>Nama:</b> <span id="pNama">-</span></p>
+            <p><b>Email:</b> <span id="pEmail">-</span></p>
+            <p><b>Kategori:</b> <span id="pJenis">Novel</span></p>
+            <p><b>Judul Buku:</b> <span id="pJudul">-</span></p>
+            <p><b>Tanggal Pinjam:</b> <span id="pTanggal">-</span></p>
+          </div>
+        </div>
+
+        <!-- Daftar Peminjaman Aktif -->
+        <div class="peminjaman-list">
+          <h3>Daftar Peminjaman Aktif</h3>
+          <div id="activeBorrowings"></div>
+        </div>
+      </div>
+
+      <!-- Halaman Pengembalian -->
+      <div id="return" class="page container">
+        <h2>Pengembalian Buku</h2>
+        <form onsubmit="submitReturn(event)">
+          <label for="returnName">Nama Peminjam:</label>
+          <input type="text" id="returnName" required />
+
+          <label for="returnBook">Pilih Buku yang Dikembalikan:</label>
+          <select id="returnBook" required>
+            <option value="">-- Pilih Buku --</option>
+          </select>
+
+          <button type="submit">Kembalikan Buku</button>
+        </form>
+
+        <h3>Riwayat Pengembalian</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Buku</th>
+              <th>Tanggal Pinjam</th>
+              <th>Tanggal Kembali</th>
+              <th>Denda</th>
+            </tr>
+          </thead>
+          <tbody id="returnHistory">
+            <tr>
+              <td colspan="5" style="text-align: center">
+                Belum ada pengembalian
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Halaman Laporan -->
+      <div id="report" class="page container">
+        <h2>Laporan Data Buku</h2>
+        <div class="card">
+          <table>
+            <thead>
+              <tr>
+                <th>Judul Buku</th>
+                <th>Kategori</th>
+                <th>Pengarang</th>
+                <th>Stok Tersedia</th>
+                <th>Stok Dipinjam</th>
+                <th>Total Stok</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+          <div class="footer">
+            Menampilkan laporan data buku secara real-time
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
   </body>
 </html>
