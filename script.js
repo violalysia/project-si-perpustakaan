@@ -384,22 +384,14 @@
           book.dipinjam--;
         }
 
-        // Hitung denda (Rp 5.000 per hari keterlambatan, batas 7 hari)
-        const borrowDate = new Date(borrowing.tanggalPinjam);
-        const today = new Date();
-        const diffTime = today - borrowDate;
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        const lateDays = Math.max(0, diffDays - 7);
-        const fine = lateDays * 5000;
 
         // Tambah ke riwayat pengembalian
         returnHistory.push({
-          nama: borrowing.nama,
-          judul: borrowing.judul,
-          tanggalPinjam: borrowing.tanggalPinjam,
-          tanggalKembali: today.toISOString().split("T")[0],
-          denda: fine,
-        });
+        nama: borrowing.nama,
+        judul: borrowing.judul,
+        tanggalPinjam: borrowing.tanggalPinjam,
+        tanggalKembali: new Date().toISOString().split("T")[0],
+       });
 
         // Hapus dari daftar peminjaman aktif
         activeBorrowings.splice(borrowingIndex, 1);
@@ -411,13 +403,7 @@
         displayBooks(books);
         updateActiveBorrowingsList();
 
-        alert(
-          `Pengembalian berhasil!\n\nBuku: ${
-            borrowing.judul
-          }\nTerlambat: ${lateDays} hari\nDenda: Rp ${fine.toLocaleString(
-            "id-ID"
-          )}`
-        );
+       alert(`Pengembalian berhasil!\n\nBuku: ${borrowing.judul}\nPeminjam: ${borrowing.nama}`);
 
         // Reset form
         document.getElementById("returnName").value = "";
@@ -438,11 +424,10 @@
         returnHistory.forEach((record) => {
           const row = document.createElement("tr");
           row.innerHTML = `
-            <td>${record.nama}</td>
-            <td>${record.judul}</td>
-            <td>${record.tanggalPinjam}</td>
-            <td>${record.tanggalKembali}</td>
-            <td>Rp ${record.denda.toLocaleString("id-ID")}</td>
+          <td>${record.nama}</td>
+          <td>${record.judul}</td>
+          <td>${record.tanggalPinjam}</td>
+          <td>${record.tanggalKembali}</td>
           `;
           tbody.appendChild(row);
         });
