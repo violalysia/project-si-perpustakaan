@@ -1,0 +1,51 @@
+📚 Sistem Informasi Perpustakaan Sistem Informasi Perpustakaan.
+📚 Sistem Informasi Perpustakaan Sistem Informasi Perpustakaan adalah web untuk mengelola data buku, peminjaman, dan pengembalian buku secara digital. Website ini dirancang untuk mempermudah administrasi perpustakaan dengan interface yang modern dan responsive.
+
+✨ Fitur Utama
+🔐 Sistem Login
+
+Autentikasi user untuk akses ke sistem
+Username: admin | Password: 123
+
+📖 Katalog Buku
+
+Tampilan grid card untuk setiap buku
+Filter berdasarkan kategori (Novel, Cerpen, Pelajaran)
+Fitur pencarian buku real-time
+Informasi stok tersedia dan dipinjam
+Status ketersediaan buku
+
+📝 Peminjaman Buku
+
+Form peminjaman dengan validasi
+Preview data sebelum submit
+Update stok otomatis
+Daftar peminjaman aktif
+Hanya dapat meminjam buku dengan stok tersedia
+
+🔄 Pengembalian Buku
+
+Form pengembalian dengan validasi nama peminjam
+
+📊 Laporan
+
+Tabel laporan data buku real-time
+Informasi stok tersedia, dipinjam, dan total
+Status ketersediaan buku
+Data per kategori dan pengarang
+
+🎨 Desain & UI/UX
+
+Responsive Design: Otomatis menyesuaikan di Desktop, Tablet, dan Mobile
+Gradient Background: Background colorful dengan kombinasi warna pastel
+Sidebar Navigation: Menu navigasi yang dapat di-toggle
+Card Layout: Desain card modern untuk katalog buku
+Interactive Elements: Hover effects dan smooth transitions
+Mobile-First Approach: Optimasi untuk perangkat mobile
+
+🛠️ Teknologi yang Digunakan
+
+HTML5: Struktur dan semantic markup
+CSS3: Styling dengan Flexbox, Grid, dan Responsive Units (clamp, rem, vw)
+JavaScript (Vanilla): Logic dan interaktivitas tanpa framework
+Google Fonts: Font 'Rouge Script' untuk header
